@@ -1,23 +1,22 @@
-name: Build MATEKF405SE
+name: Build & Release MATEKF405SE
 
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
   release:
     types: [published]
 
 jobs:
   build:
-    name: Build F405SE
+    name: Build MATEKF405SE
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
         with:
           submodules: recursive
 
-      - name: Cache build toolchain
+      - name: Cache toolchain
         uses: actions/cache@v4
         id: cache-toolchain
         with:
@@ -35,33 +34,26 @@ jobs:
       - name: Hydrate configuration
         run: make configs
 
-      - name: Build target MATEKF405SE
-        run: make EXTRA_FLAGS=-Werror MATEKF405SE_rev
+      - name: Build
+        run: make EXTRA_FLAGS=-Werror MATEKF405SE
 
-      - name: Upload artifact
+      - name: Upload HEX
         uses: actions/upload-artifact@v4
         with:
           name: MATEKF405SE
           path: obj/*.hex
 
   release:
-    name: Attach HEX to Release
+    name: Upload to Release
     needs: build
-    runs-on: ubuntu-latest
     if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Download artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v5
-        with:
-          name: MATEKF405SE
 
-      - name: List files
-        run: ls -R .
-
-      - name: Attach HEX to Release
+      - name: Upload HEX to Release
         run: |
           TAG="${GITHUB_REF##*/}"
           gh release upload "$TAG" MATEKF405SE/*.hex
