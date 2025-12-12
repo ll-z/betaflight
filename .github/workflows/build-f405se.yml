@@ -34,8 +34,8 @@ jobs:
       - name: Hydrate configuration
         run: make configs
 
-      - name: Build
-        run: make EXTRA_FLAGS=-Werror MATEKF405SE
+      - name: Build HEX (rev)
+        run: make EXTRA_FLAGS=-Werror MATEKF405SE_rev
 
       - name: Upload HEX
         uses: actions/upload-artifact@v4
@@ -56,6 +56,6 @@ jobs:
       - name: Upload HEX to Release
         run: |
           TAG="${GITHUB_REF##*/}"
-          gh release upload "$TAG" MATEKF405SE/*.hex
+          gh release upload "$TAG" MATEKF405SE/*.hex --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
