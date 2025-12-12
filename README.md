@@ -12,13 +12,7 @@ Betaflight is flight controller software (firmware) used to fly multi-rotor craf
 | - | - | - | - |
 | 01-10-2025 | 2025.12 | Beta | Completed |
 | 01-10-2025 | 2025.12 | Release Candidate | Underway |
-| 01-12-2025 | 2025.12 | Release | Pending |
-| 01-04-2026 | 2026.6 | Beta | |
-| 01-05-2026 | 2026.6 | Release Candidate | |
-| 01-06-2026 | 2026.6 | Release | |
-| 01-10-2026 | 2026.12 | Beta | |
-| 01-11-2026 | 2026.12 | Release Candidate | |
-| 01-12-2026 | 2026.12 | Release | |
+| 12-12-2025 | 2025.12 | Release | Pending |
 
 
 ## News
