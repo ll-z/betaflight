@@ -62,11 +62,11 @@ jobs:
         uses: actions/download-artifact@v5
         
       - name: Verify HEX
-        run: ls -al obj
+        run: ls -al 
         
       - name: Upload HEX to Release
         run: |
           TAG="${GITHUB_REF##*/}"
-          gh release upload "$TAG" obj/*.hex --clobber
+          gh release upload "$TAG" *.hex --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
