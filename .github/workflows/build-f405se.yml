@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MATEKF405SE
-          path: obj/MATEKF405SE/*.hex
+          path: obj/*.hex
 
   release:
     name: Upload to Release
@@ -62,11 +62,11 @@ jobs:
         uses: actions/download-artifact@v5
         
       - name: Verify HEX
-        run: ls -al obj/MATEKF405SE
+        run: ls -al obj
         
       - name: Upload HEX to Release
         run: |
           TAG="${GITHUB_REF##*/}"
-          gh release upload "$TAG" obj/MATEKF405SE/*.hex --clobber
+          gh release upload "$TAG" obj/*.hex --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
