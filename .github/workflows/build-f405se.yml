@@ -33,6 +33,14 @@ jobs:
 
       - name: Hydrate configuration
         run: make configs
+        
+      - name: Setup environment
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "OPT_FLAGS=-O3" >> $GITHUB_ENV
+          else
+            echo "OPT_FLAGS=-Og" >> $GITHUB_ENV
+          fi
 
       - name: Build MATEKF405SE
         run: make EXTRA_FLAGS=-Werror MATEKF405SE
